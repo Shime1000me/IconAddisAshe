@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Reading Corner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-login {
+            font-size: 16px;
+            background-color: #3498DB;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-login:hover {
+            background-color: #2980b9;
+        }
+
+        .header-login a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav {
+            background-color: #34495E;
+            padding: 12px 20px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #2C3E50;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            border-left: 8px solid #008080;
+            padding-left: 20px;
+        }
+
+        .level-section {
+            margin-bottom: 40px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .beginner {
+            background-color: #27AE60;
+            color: white;
+        }
+
+        .intermediate {
+            background-color: #3498DB;
+            color: white;
+        }
+
+        .advanced {
+            background-color: #E74C3C;
+            color: white;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .story-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .story-card:hover {
+            border-color: #008080;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,128,128,0.15);
+        }
+
+        .story-preview {
+            background: linear-gradient(135deg, #f6f9fc, #e6f0fa);
+            padding: 20px;
+            border-bottom: 2px dashed #008080;
+            font-style: italic;
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        .story-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+
+        .story-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .story-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-read {
+            background-color: #34495E;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .btn-read:hover {
+            background-color: #2C3E50;
+        }
+
+        .btn-questions {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .btn-questions:hover {
+            background-color: #006666;
+        }
+
+        .reading-tip {
+            background-color: #e8f4fd;
+            border-left: 6px solid #3498DB;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tip-icon {
+            font-size: 32px;
+        }
+
+        .tip-text {
+            flex: 1;
+            font-size: 16px;
+            color: #2C3E50;
+        }
+
+        .progress-indicator {
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { font-size: 22px; }
+            .nav { gap: 10px; }
+            .stories-grid { grid-template-columns: 1fr; }
+            .story-footer { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>📗 READING CORNER</span>
+        <span class="header-login"><a href="student/login.html">🔐 Login</a></span>
+    </div>
+
+    <!-- navigation -->
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="grammar.html">Grammar</a>
+        <a href="vocabulary.html">Vocabulary</a>
+        <a href="reading.html">Reading</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="resources.html">Resources</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <h1 class="page-title">📚 READING PASSAGES</h1>
+
+        <!-- BEGINNER LEVEL -->
+        <div class="level-section">
+            <div class="level-badge beginner">📖 BEGINNER LEVEL</div>
+            
+            <div class="stories-grid">
+                <!-- My Daily Routine -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "Anna wakes up at 7 AM. She brushes her teeth and eats breakfast. Then she goes to school. She likes to read books..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">My Daily Routine</span>
+                        <div class="story-buttons">
+                            <button class="btn-read" onclick="alert('Full story - coming soon!')">Read More</button>
+                            <button class="btn-questions" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Questions →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A Trip to the Market -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "Maria goes to the market every Saturday. She buys fresh fruits and vegetables. She meets her friends there..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">A Trip to the Market</span>
+                        <div class="story-buttons">
+                            <button class="btn-read" onclick="alert('Full story - coming soon!')">Read More</button>
+                            <button class="btn-questions" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Questions →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Family -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "I have a small family. My father is a teacher. My mother is a doctor. I have one brother and one sister..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">My Family</span>
+                        <div class="story-buttons">
+                            <button class="btn-read" onclick="alert('Full story - coming soon!')">Read More</button>
+                            <button class="btn-questions" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Questions →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERMEDIATE LEVEL -->
+        <div class="level-section">
+            <div class="level-badge intermediate">📚 INTERMEDIATE LEVEL</div>
+            
+            <div class="stories-grid">
+                <!-- London Travel Guide -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "London, the capital of England, is one of the most visited cities in the world. From the historic Tower of London to the modern London Eye..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">London Travel Guide</span>
+                        <span class="progress-indicator">12 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+
+                <!-- Working from Home -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "Remote work has become increasingly common in recent years. Many companies now offer flexible working arrangements..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">Working from Home</span>
+                        <span class="progress-indicator">8 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+
+                <!-- Environmental Tips -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "Climate change is one of the biggest challenges of our time. Here are some simple ways to reduce your carbon footprint..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">Environmental Tips</span>
+                        <span class="progress-indicator">10 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADVANCED LEVEL -->
+        <div class="level-section">
+            <div class="level-badge advanced">📚 ADVANCED LEVEL</div>
+            
+            <div class="stories-grid">
+                <!-- The Future of AI -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "Artificial Intelligence is reshaping industries and societies. From healthcare to transportation, AI's impact is profound..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">The Future of AI</span>
+                        <span class="progress-indicator">15 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+
+                <!-- Climate Change Effects -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "The effects of climate change are becoming increasingly visible. Rising sea levels, extreme weather events, and biodiversity loss..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">Climate Change Effects</span>
+                        <span class="progress-indicator">12 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+
+                <!-- Global Economy -->
+                <div class="story-card">
+                    <div class="story-preview">
+                        "The global economy is an interconnected system where events in one country can affect markets worldwide..."
+                    </div>
+                    <div class="story-footer">
+                        <span class="story-title">Global Economy</span>
+                        <span class="progress-indicator">14 questions</span>
+                        <button class="btn-read" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Read →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- reading tip -->
+        <div class="reading-tip">
+            <span class="tip-icon">💡</span>
+            <span class="tip-text"><strong>Reading Tip:</strong> Read each passage twice. First for understanding, then for details. Take notes of new vocabulary!</span>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    console.log("Reading page loaded");
+</script>
+</body>
+</html>

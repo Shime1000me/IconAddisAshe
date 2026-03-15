@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Challenge Zone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-login {
+            font-size: 16px;
+            background-color: #3498DB;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-login:hover {
+            background-color: #2980b9;
+        }
+
+        .header-login a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav {
+            background-color: #34495E;
+            padding: 12px 20px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #2C3E50;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            border-left: 8px solid #008080;
+            padding-left: 20px;
+        }
+
+        /* weekly challenge */
+        .weekly-challenge {
+            background: linear-gradient(135deg, #fff5e6, #ffe4cc);
+            border: 3px solid #e67e22;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2);
+        }
+
+        .weekly-challenge::before {
+            content: "🔥";
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.2;
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .challenge-title {
+            font-size: 36px;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+
+        .challenge-details {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            color: #34495E;
+        }
+
+        .btn-start {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .btn-start:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+
+        /* leaderboard */
+        .leaderboard-section {
+            background: white;
+            border: 2px solid #008080;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            color: #2C3E50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            background-color: #34495E;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .leaderboard-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: #f5f9ff;
+        }
+
+        .rank-1 {
+            background-color: #fff9e6;
+            font-weight: bold;
+        }
+
+        .rank-2 {
+            background-color: #f5f5f5;
+        }
+
+        .rank-3 {
+            background-color: #f0f0f0;
+        }
+
+        .badge-icon {
+            font-size: 18px;
+        }
+
+        .your-score {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+
+        .btn-full-leaderboard {
+            background-color: transparent;
+            border: 2px solid #008080;
+            color: #008080;
+            padding: 8px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-full-leaderboard:hover {
+            background-color: #008080;
+            color: white;
+        }
+
+        /* badges */
+        .badges-section {
+            margin-bottom: 40px;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .badge-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 20px 10px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .badge-card.earned {
+            border-color: #f1c40f;
+            background: #fff9e6;
+        }
+
+        .badge-card.locked {
+            opacity: 0.5;
+            filter: grayscale(0.5);
+        }
+
+        .badge-emoji {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .badge-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .badge-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* coming challenges */
+        .coming-challenges {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .challenge-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .coming-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 6px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .coming-date {
+            color: #008080;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { font-size: 22px; }
+            .nav { gap: 10px; }
+            .challenge-title { font-size: 28px; }
+            .leaderboard-table { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>🏆 CHALLENGE ZONE</span>
+        <span class="header-login"><a href="student/login.html">🔐 Login</a></span>
+    </div>
+
+    <!-- navigation -->
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="grammar.html">Grammar</a>
+        <a href="vocabulary.html">Vocabulary</a>
+        <a href="reading.html">Reading</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="resources.html">Resources</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <h1 class="page-title">🏆 CHALLENGES & COMPETITIONS</h1>
+
+        <!-- weekly challenge -->
+        <div class="weekly-challenge">
+            <span class="challenge-badge">🔥 WEEKLY CHALLENGE</span>
+            <h2 class="challenge-title">Irregular Verbs Marathon</h2>
+            
+            <div class="challenge-details">
+                <span class="detail-item">⏱️ 20 questions • 5 minutes</span>
+                <span class="detail-item">🏆 Gold Badge + 100 points</span>
+                <span class="detail-item">👥 24 participants this week</span>
+            </div>
+
+            <button class="btn-start" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">▶ START CHALLENGE</button>
+            <div style="font-size: 13px; color: #666; margin-top: 10px;">(Login required)</div>
+        </div>
+
+        <!-- leaderboard -->
+        <div class="leaderboard-section">
+            <div class="section-header">
+                <h2>🥇 LEADERBOARD - THIS WEEK</h2>
+                <button class="btn-full-leaderboard" onclick="alert('Full leaderboard - coming soon!')">View Full Leaderboard</button>
+            </div>
+
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Badge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-1">
+                        <td>1 🥇</td>
+                        <td>Sarah J.</td>
+                        <td>1950</td>
+                        <td><span class="badge-icon">🔥</span> 5 Day Streak</td>
+                    </tr>
+                    <tr class="rank-2">
+                        <td>2 🥈</td>
+                        <td>Mike T.</td>
+                        <td>1820</td>
+                        <td><span class="badge-icon">📚</span> 50 Quizzes</td>
+                    </tr>
+                    <tr class="rank-3">
+                        <td>3 🥉</td>
+                        <td>Emma W.</td>
+                        <td>1760</td>
+                        <td><span class="badge-icon">⚡</span> Speedster</td>
+                    </tr>
+                    <tr class="your-score">
+                        <td>4</td>
+                        <td><strong>You</strong></td>
+                        <td><strong>1450</strong></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>David L.</td>
+                        <td>1320</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Lisa B.</td>
+                        <td>1280</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>James W.</td>
+                        <td>1150</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Anna L.</td>
+                        <td>1100</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Tom H.</td>
+                        <td>1050</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Sophia G.</td>
+                        <td>980</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- your badges -->
+        <div class="badges-section">
+            <h2 style="color: #2C3E50; margin-bottom: 15px;">🎖️ YOUR BADGES (4 earned)</h2>
+            <div class="badges-grid">
+                <div class="badge-card earned">
+                    <div class="badge-emoji">🔥</div>
+                    <div class="badge-name">5 Day Streak</div>
+                    <div class="badge-desc">5 days in a row</div>
+                </div>
+                <div class="badge-card earned">
+                    <div class="badge-emoji">📚</div>
+                    <div class="badge-name">50 Quizzes</div>
+                    <div class="badge-desc">Completed 50 quizzes</div>
+                </div>
+                <div class="badge-card earned">
+                    <div class="badge-emoji">⚡</div>
+                    <div class="badge-name">Speedster</div>
+                    <div class="badge-desc">Fast finisher</div>
+                </div>
+                <div class="badge-card earned">
+                    <div class="badge-emoji">🎯</div>
+                    <div class="badge-name">Perfect Score</div>
+                    <div class="badge-desc">100% on a challenge</div>
+                </div>
+                <div class="badge-card locked">
+                    <div class="badge-emoji">🔒</div>
+                    <div class="badge-name">???</div>
+                    <div class="badge-desc">Keep going</div>
+                </div>
+                <div class="badge-card locked">
+                    <div class="badge-emoji">🔒</div>
+                    <div class="badge-name">???</div>
+                    <div class="badge-desc">Keep going</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- coming challenges -->
+        <div class="coming-challenges">
+            <h2 style="color: #2C3E50; margin-bottom: 15px;">📅 COMING CHALLENGES</h2>
+            <div class="challenge-list">
+                <div class="coming-item">
+                    <span><strong>Next Week:</strong> Preposition Marathon</span>
+                    <span class="coming-date">Jan 22</span>
+                </div>
+                <div class="coming-item">
+                    <span><strong>Feb 1:</strong> Vocabulary Super Challenge</span>
+                    <span class="coming-date">Feb 1</span>
+                </div>
+                <div class="coming-item">
+                    <span><strong>Feb 15:</strong> Reading Comprehension Cup</span>
+                    <span class="coming-date">Feb 15</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    console.log("Challenge page loaded");
+</script>
+</body>
+</html>

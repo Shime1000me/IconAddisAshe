@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Vocabulary Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-login {
+            font-size: 16px;
+            background-color: #3498DB;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-login:hover {
+            background-color: #2980b9;
+        }
+
+        .header-login a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav {
+            background-color: #34495E;
+            padding: 12px 20px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #2C3E50;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            border-left: 8px solid #008080;
+            padding-left: 20px;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .topic-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px 20px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card:hover {
+            border-color: #008080;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,128,128,0.15);
+        }
+
+        .topic-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .topic-title {
+            font-size: 24px;
+            color: #2C3E50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .topic-stats {
+            color: #008080;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .sample-words {
+            background-color: #F8F9FA;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #34495E;
+            border-left: 3px solid #3498DB;
+        }
+
+        .sample-words span {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin: 3px;
+            font-size: 13px;
+        }
+
+        .topic-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-view {
+            background-color: #34495E;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            flex: 1;
+        }
+
+        .btn-view:hover {
+            background-color: #2C3E50;
+        }
+
+        .btn-practice {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+            flex: 1;
+        }
+
+        .btn-practice:hover {
+            background-color: #006666;
+        }
+
+        .featured-section {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px dashed #008080;
+        }
+
+        .featured-title {
+            font-size: 22px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .word-item {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 40px;
+            border: 1px solid #008080;
+            color: #2C3E50;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .word-item:hover {
+            background: #008080;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .warning-note {
+            background-color: #FFF3CD;
+            border: 2px solid #FFC107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 30px 0 20px;
+            color: #856404;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { font-size: 22px; }
+            .nav { gap: 10px; }
+            .topics-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>📕 VOCABULARY BUILDER</span>
+        <span class="header-login"><a href="student/login.html">🔐 Login</a></span>
+    </div>
+
+    <!-- navigation -->
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="grammar.html">Grammar</a>
+        <a href="vocabulary.html">Vocabulary</a>
+        <a href="reading.html">Reading</a>
+        <a href="challenge.html">Challenge</a>
+        <a href="resources.html">Resources</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <h1 class="page-title">🌍 VOCABULARY TOPICS</h1>
+
+        <!-- topics grid -->
+        <div class="topics-grid">
+            <!-- Travel -->
+            <div class="topic-card">
+                <div class="topic-icon">✈️</div>
+                <div class="topic-title">TRAVEL</div>
+                <div class="topic-stats">30 words</div>
+                <div class="sample-words">
+                    <span>✈️ luggage</span>
+                    <span>✈️ departure</span>
+                    <span>✈️ arrival</span>
+                    <span>✈️ passport</span>
+                    <span>✈️ destination</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('Travel vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+
+            <!-- Business -->
+            <div class="topic-card">
+                <div class="topic-icon">💼</div>
+                <div class="topic-title">BUSINESS</div>
+                <div class="topic-stats">25 words</div>
+                <div class="sample-words">
+                    <span>💼 meeting</span>
+                    <span>💼 contract</span>
+                    <span>💼 salary</span>
+                    <span>💼 deadline</span>
+                    <span>💼 negotiation</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('Business vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+
+            <!-- Food -->
+            <div class="topic-card">
+                <div class="topic-icon">🍔</div>
+                <div class="topic-title">FOOD</div>
+                <div class="topic-stats">20 words</div>
+                <div class="sample-words">
+                    <span>🍔 apple</span>
+                    <span>🍔 restaurant</span>
+                    <span>🍔 ingredients</span>
+                    <span>🍔 recipe</span>
+                    <span>🍔 delicious</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('Food vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+
+            <!-- School -->
+            <div class="topic-card">
+                <div class="topic-icon">🏫</div>
+                <div class="topic-title">SCHOOL</div>
+                <div class="topic-stats">28 words</div>
+                <div class="sample-words">
+                    <span>🏫 teacher</span>
+                    <span>🏫 homework</span>
+                    <span>🏫 classroom</span>
+                    <span>🏫 exam</span>
+                    <span>🏫 diploma</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('School vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+
+            <!-- Tech -->
+            <div class="topic-card">
+                <div class="topic-icon">💻</div>
+                <div class="topic-title">TECH</div>
+                <div class="topic-stats">32 words</div>
+                <div class="sample-words">
+                    <span>💻 computer</span>
+                    <span>💻 software</span>
+                    <span>💻 hardware</span>
+                    <span>💻 internet</span>
+                    <span>💻 application</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('Tech vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+
+            <!-- Health -->
+            <div class="topic-card">
+                <div class="topic-icon">🏥</div>
+                <div class="topic-title">HEALTH</div>
+                <div class="topic-stats">22 words</div>
+                <div class="sample-words">
+                    <span>🏥 doctor</span>
+                    <span>🏥 medicine</span>
+                    <span>🏥 hospital</span>
+                    <span>🏥 exercise</span>
+                    <span>🏥 healthy</span>
+                </div>
+                <div class="topic-buttons">
+                    <button class="btn-view" onclick="alert('Health vocabulary list - coming soon!')">📋 View List</button>
+                    <button class="btn-practice" onclick="if(confirm('Login required. Go to login page?')) window.location.href='student/login.html'">Practice →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- featured word section -->
+        <div class="featured-section">
+            <div class="featured-title">
+                <span>🌟</span> FEATURED WORD LISTS
+            </div>
+            <div class="word-list">
+                <div class="word-item">Essential Verbs</div>
+                <div class="word-item">Common Adjectives</div>
+                <div class="word-item">Office Vocabulary</div>
+                <div class="word-item">Family Members</div>
+                <div class="word-item">Weather Terms</div>
+                <div class="word-item">Shopping Phrases</div>
+                <div class="word-item">Sports Terms</div>
+                <div class="word-item">Emotions</div>
+            </div>
+        </div>
+
+        <!-- login warning -->
+        <div class="warning-note">
+            ⚠️ [Practice →] requires login. Click Practice to login.
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    console.log("Vocabulary page loaded");
+</script>
+</body>
+</html>
