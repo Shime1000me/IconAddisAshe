@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Edit Questions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid #8E44AD;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(142,68,173,0.15);
+        }
+
+        .header {
+            background-color: #8E44AD;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #6C3483;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            background-color: #6C3483;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #5B2C6F;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .topic-header h2 {
+            font-size: 28px;
+            color: #2C3E50;
+        }
+
+        .topic-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .topic-select {
+            padding: 10px 20px;
+            border: 2px solid #8E44AD;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .info-banner {
+            background: linear-gradient(145deg, #f0e6f5, #e1d0e8);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .info-banner p {
+            color: #4A235A;
+            font-size: 16px;
+        }
+
+        .slot-count {
+            background: #8E44AD;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+
+        .questions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .question-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 20px;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .question-card:hover {
+            border-color: #8E44AD;
+            box-shadow: 0 5px 15px rgba(142,68,173,0.1);
+        }
+
+        .question-card.filled {
+            border-left: 6px solid #27AE60;
+        }
+
+        .question-card.empty {
+            background-color: #f9f9f9;
+            opacity: 0.8;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .question-type {
+            background-color: #8E44AD;
+            color: white;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        .question-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .question-input:focus {
+            outline: none;
+            border-color: #8E44AD;
+        }
+
+        .type-selector {
+            margin-bottom: 15px;
+        }
+
+        .type-select {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .option-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-input input {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .correct-answer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 12px;
+        }
+
+        .correct-answer select {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 2px solid #008080;
+        }
+
+        .matching-pairs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .matching-col {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .matching-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .empty-indicator {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .save-section {
+            background: white;
+            border-top: 2px solid #8E44AD;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-save {
+            background-color: #27AE60;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-save:hover {
+            background-color: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(39,174,96,0.3);
+        }
+
+        .last-saved {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .note {
+            color: #8E44AD;
+            font-style: italic;
+        }
+
+        .footer {
+            background-color: #8E44AD;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #6C3483;
+        }
+
+        @media (max-width: 600px) {
+            .topic-header { flex-direction: column; }
+            .info-banner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>✏️ EDITING: GRAMMAR - PRESENT SIMPLE</span>
+        <a href="dashboard.html">← Back</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <!-- topic header -->
+        <div class="topic-header">
+            <h2>Present Simple Questions</h2>
+            <div class="topic-selector">
+                <select class="topic-select" onchange="changeTopic(this.value)">
+                    <option value="present-simple">Present Simple</option>
+                    <option value="past-simple">Past Simple</option>
+                    <option value="future-simple">Future Simple</option>
+                    <option value="travel-vocab">Travel Vocabulary</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- info banner -->
+        <div class="info-banner">
+            <p>⚡ <strong>200 SLOTS</strong> - Fill only what you need. Empty slots won't appear to students.</p>
+            <span class="slot-count" id="filledCount">📊 Currently: 6 questions filled</span>
+        </div>
+
+        <!-- questions container (scrollable) -->
+        <div class="questions-container" id="questionsContainer">
+            <!-- Q1 - Multiple Choice (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q1:</span>
+                    <span class="question-type">Multiple Choice</span>
+                </div>
+                <input type="text" class="question-input" value="She _____ to school every day." placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option>Multiple Choice</option>
+                        <option>Short Answer</option>
+                        <option>True/False</option>
+                        <option>Fill in Blank</option>
+                        <option>Matching</option>
+                    </select>
+                </div>
+
+                <div class="options-container">
+                    <div class="option-input">
+                        <span>A:</span>
+                        <input type="text" value="go">
+                    </div>
+                    <div class="option-input">
+                        <span>B:</span>
+                        <input type="text" value="goes">
+                    </div>
+                    <div class="option-input">
+                        <span>C:</span>
+                        <input type="text" value="going">
+                    </div>
+                    <div class="option-input">
+                        <span>D:</span>
+                        <input type="text" value="">
+                    </div>
+                </div>
+
+                <div class="correct-answer">
+                    <span>✅ Correct Answer:</span>
+                    <select>
+                        <option>A</option>
+                        <option selected>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Q2 - Short Answer (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q2:</span>
+                    <span class="question-type">Short Answer</span>
+                </div>
+                <input type="text" class="question-input" value="What did you do yesterday?" placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option>Multiple Choice</option>
+                        <option selected>Short Answer</option>
+                        <option>True/False</option>
+                        <option>Fill in Blank</option>
+                        <option>Matching</option>
+                    </select>
+                </div>
+
+                <div class="note" style="padding: 15px; background: #f0f0f0; border-radius: 8px;">
+                    ℹ️ (Teacher will review manually)
+                </div>
+            </div>
+
+            <!-- Q3 - True/False (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q3:</span>
+                    <span class="question-type">True/False</span>
+                </div>
+                <input type="text" class="question-input" value="London is the capital of France." placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option>Multiple Choice</option>
+                        <option>Short Answer</option>
+                        <option selected>True/False</option>
+                        <option>Fill in Blank</option>
+                        <option>Matching</option>
+                    </select>
+                </div>
+
+                <div class="correct-answer">
+                    <span>✅ Correct Answer:</span>
+                    <select>
+                        <option>True</option>
+                        <option selected>False</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Q4 - Fill in Blank (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q4:</span>
+                    <span class="question-type">Fill in Blank</span>
+                </div>
+                <input type="text" class="question-input" value="I _____ (be) a student." placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option>Multiple Choice</option>
+                        <option>Short Answer</option>
+                        <option>True/False</option>
+                        <option selected>Fill in Blank</option>
+                        <option>Matching</option>
+                    </select>
+                </div>
+
+                <div class="correct-answer">
+                    <span>✅ Correct Answer:</span>
+                    <input type="text" value="am" style="padding: 8px; border: 2px solid #008080; border-radius: 8px;">
+                </div>
+            </div>
+
+            <!-- Q5 - Matching (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q5:</span>
+                    <span class="question-type">Matching</span>
+                </div>
+                <input type="text" class="question-input" value="Match the words:" placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option>Multiple Choice</option>
+                        <option>Short Answer</option>
+                        <option>True/False</option>
+                        <option>Fill in Blank</option>
+                        <option selected>Matching</option>
+                    </select>
+                </div>
+
+                <div class="matching-pairs">
+                    <div class="matching-col">
+                        <div class="matching-row">
+                            <span>1. Apple</span>
+                            <span>→ a. Fruit</span>
+                        </div>
+                        <div class="matching-row">
+                            <span>2. Car</span>
+                            <span>→ b. Vehicle</span>
+                        </div>
+                        <div class="matching-row">
+                            <span>3. Book</span>
+                            <span>→ c. Read</span>
+                        </div>
+                    </div>
+                    <div class="matching-col">
+                        <p><strong>Correct Pairs:</strong> 1-a, 2-b, 3-c</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q6 - Multiple Choice (filled) -->
+            <div class="question-card filled">
+                <div class="question-header">
+                    <span class="question-number">Q6:</span>
+                    <span class="question-type">Multiple Choice</span>
+                </div>
+                <input type="text" class="question-input" value="_____ you like coffee?" placeholder="Question text">
+                
+                <div class="type-selector">
+                    <select class="type-select">
+                        <option selected>Multiple Choice</option>
+                        <option>Short Answer</option>
+                        <option>True/False</option>
+                        <option>Fill in Blank</option>
+                        <option>Matching</option>
+                    </select>
+                </div>
+
+                <div class="options-container">
+                    <div class="option-input">
+                        <span>A:</span>
+                        <input type="text" value="Do">
+                    </div>
+                    <div class="option-input">
+                        <span>B:</span>
+                        <input type="text" value="Does">
+                    </div>
+                    <div class="option-input">
+                        <span>C:</span>
+                        <input type="text" value="Are">
+                    </div>
+                    <div class="option-input">
+                        <span>D:</span>
+                        <input type="text" value="">
+                    </div>
+                </div>
+
+                <div class="correct-answer">
+                    <span>✅ Correct Answer:</span>
+                    <select>
+                        <option selected>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Q7 to Q195 - Empty slots (showing a few examples) -->
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q7:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q8:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <!-- Note: In real implementation, this would continue to Q200 -->
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q196:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q197:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q198:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q199:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+
+            <div class="question-card empty">
+                <div class="question-header">
+                    <span class="question-number">Q200:</span>
+                </div>
+                <div class="empty-indicator">Empty slot - click to add question</div>
+            </div>
+        </div>
+
+        <!-- save section -->
+        <div class="save-section">
+            <button class="btn-save" onclick="saveQuestions()">💾 SAVE ALL FILLED QUESTIONS (6)</button>
+            <span class="last-saved">✅ Last saved: Today 10:30 AM</span>
+        </div>
+        <p class="note">ℹ️ Only filled questions appear to students</p>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub - Teacher Portal
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if teacher is logged in
+        if (localStorage.getItem('teacherLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    });
+
+    function changeTopic(topic) {
+        alert(`Switching to ${topic} - coming soon!`);
+    }
+
+    function saveQuestions() {
+        alert('Questions saved successfully!');
+    }
+</script>
+</body>
+</html>

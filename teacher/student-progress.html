@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Student Progress</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            border: 2px solid #8E44AD;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(142,68,173,0.15);
+        }
+
+        .header {
+            background-color: #8E44AD;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #6C3483;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            background-color: #6C3483;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #5B2C6F;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .student-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background: linear-gradient(145deg, #f0e6f5, #ffffff);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid #8E44AD;
+        }
+
+        .student-avatar-large {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #8E44AD, #6C3483);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            border: 4px solid #f1c40f;
+        }
+
+        .student-info h2 {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+
+        .student-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: #666;
+        }
+
+        .student-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: #8E44AD;
+            box-shadow: 0 5px 15px rgba(142,68,173,0.1);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #8E44AD;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #2C3E50;
+            margin: 30px 0 20px;
+            border-left: 6px solid #8E44AD;
+            padding-left: 15px;
+        }
+
+        .progress-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-table th {
+            background-color: #34495E;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .progress-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .progress-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .score-bar {
+            width: 100px;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .score-fill {
+            height: 100%;
+            background-color: #27AE60;
+            border-radius: 4px;
+        }
+
+        .chart-container {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            margin: 30px 0 10px;
+        }
+
+        .bar {
+            width: 60px;
+            background: linear-gradient(to top, #8E44AD, #C39BD3);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.3s;
+            position: relative;
+        }
+
+        .bar-label {
+            text-align: center;
+            margin-top: 10px;
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: #8E44AD;
+        }
+
+        .pending-section {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .pending-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-review {
+            background-color: #8E44AD;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-review:hover {
+            background-color: #6C3483;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(145deg, #e8f4fd, #d4eafc);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 6px solid #3498DB;
+        }
+
+        .recent-answers {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .recent-header {
+            background-color: #34495E;
+            color: white;
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+            font-weight: bold;
+        }
+
+        .recent-row {
+            padding: 12px;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr 2fr 1fr;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .correct {
+            color: #27AE60;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: #E74C3C;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #8E44AD;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #6C3483;
+        }
+
+        @media (max-width: 768px) {
+            .recent-header, .recent-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>📊 STUDENT PROGRESS</span>
+        <a href="students.html">← Back to Students</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <!-- student header -->
+        <div class="student-header">
+            <div class="student-avatar-large">SJ</div>
+            <div class="student-info">
+                <h2 id="studentName">Sarah Johnson</h2>
+                <div class="student-meta">
+                    <span>📧 sarah.j@email.com</span>
+                    <span>🎓 Beginner Level</span>
+                    <span>📅 Joined Jan 15, 2024</span>
+                    <span>⏱️ Last login: Today</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- stats cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Total Exercises</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">19</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">79%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Day Streak</div>
+            </div>
+        </div>
+
+        <!-- progress by topic -->
+        <h3 class="section-title">📊 PROGRESS BY TOPIC</h3>
+        <table class="progress-table">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Questions</th>
+                    <th>Correct</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Present Simple</td>
+                    <td>12</td>
+                    <td>10</td>
+                    <td>83% <span class="score-bar"><span class="score-fill" style="width: 83%"></span></span></td>
+                </tr>
+                <tr>
+                    <td>Past Simple</td>
+                    <td>8</td>
+                    <td>6</td>
+                    <td>75% <span class="score-bar"><span class="score-fill" style="width: 75%"></span></span></td>
+                </tr>
+                <tr>
+                    <td>Travel Vocab</td>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>80% <span class="score-bar"><span class="score-fill" style="width: 80%"></span></span></td>
+                </tr>
+                <tr>
+                    <td>Food Vocab</td>
+                    <td>7</td>
+                    <td>5</td>
+                    <td>71% <span class="score-bar"><span class="score-fill" style="width: 71%"></span></span></td>
+                </tr>
+                <tr>
+                    <td>Reading L1</td>
+                    <td>5</td>
+                    <td>5</td>
+                    <td>100% <span class="score-bar"><span class="score-fill" style="width: 100%"></span></span></td>
+                </tr>
+                <tr>
+                    <td>Business Vocab</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>66% <span class="score-bar"><span class="score-fill" style="width: 66%"></span></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- performance chart -->
+        <h3 class="section-title">📈 PERFORMANCE OVER TIME</h3>
+        <div class="chart-container">
+            <div class="chart-bars">
+                <div class="bar" style="height: 60px">
+                    <span class="bar-value">60%</span>
+                </div>
+                <div class="bar" style="height: 75px">
+                    <span class="bar-value">75%</span>
+                </div>
+                <div class="bar" style="height: 82px">
+                    <span class="bar-value">82%</span>
+                </div>
+                <div class="bar" style="height: 79px">
+                    <span class="bar-value">79%</span>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-around;">
+                <span class="bar-label">Week 1</span>
+                <span class="bar-label">Week 2</span>
+                <span class="bar-label">Week 3</span>
+                <span class="bar-label">Week 4</span>
+            </div>
+        </div>
+
+        <!-- pending short answers -->
+        <h3 class="section-title">⏳ PENDING SHORT ANSWERS</h3>
+        <div class="pending-section">
+            <div class="pending-item">
+                <div>
+                    <strong>Present Simple - Q2:</strong> "I go to park"
+                </div>
+                <a href="review-answers.html"><button class="btn-review">Review Now</button></a>
+            </div>
+            <div class="pending-item">
+                <div>
+                    <strong>Travel Vocab - Q4:</strong> "I like travel"
+                </div>
+                <a href="review-answers.html"><button class="btn-review">Review Now</button></a>
+            </div>
+        </div>
+
+        <!-- recommendations -->
+        <h3 class="section-title">🎯 RECOMMENDATIONS</h3>
+        <div class="recommendation-card">
+            <ul style="margin-left: 20px; color: #2C3E50;">
+                <li><strong>Needs practice:</strong> Past Simple (75%)</li>
+                <li><strong>Ready for:</strong> Present Continuous</li>
+                <li><strong>Weak areas:</strong> Irregular verbs</li>
+            </ul>
+        </div>
+
+        <!-- recent answers -->
+        <h3 class="section-title">📝 RECENT ANSWERS</h3>
+        <div class="recent-answers">
+            <div class="recent-header">
+                <span>Date</span>
+                <span>Topic</span>
+                <span>Question</span>
+                <span>Answer</span>
+                <span>Result</span>
+            </div>
+            <div class="recent-row">
+                <span>Jan 16</span>
+                <span>Present Simple</span>
+                <span>Q1</span>
+                <span>goes</span>
+                <span class="correct">✅ Correct</span>
+            </div>
+            <div class="recent-row">
+                <span>Jan 16</span>
+                <span>Present Simple</span>
+                <span>Q3</span>
+                <span>go</span>
+                <span class="incorrect">❌ Incorrect</span>
+            </div>
+            <div class="recent-row">
+                <span>Jan 15</span>
+                <span>Travel Vocab</span>
+                <span>Q1</span>
+                <span>flight</span>
+                <span class="correct">✅ Correct</span>
+            </div>
+            <div class="recent-row">
+                <span>Jan 15</span>
+                <span>Reading L1</span>
+                <span>Q2</span>
+                <span>park</span>
+                <span class="correct">✅ Correct</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub - Teacher Portal
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (localStorage.getItem('teacherLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        
+        // Load selected student name
+        const studentName = localStorage.getItem('selectedStudent') || 'Sarah Johnson';
+        document.getElementById('studentName').textContent = studentName;
+    });
+</script>
+</body>
+</html>

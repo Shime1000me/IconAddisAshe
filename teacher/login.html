@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Teacher Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            border: 2px solid #8E44AD;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(142,68,173,0.2);
+        }
+
+        .header {
+            background-color: #8E44AD;
+            color: white;
+            padding: 25px 30px;
+            font-size: 28px;
+            font-weight: bold;
+            border-bottom: 3px solid #6C3483;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            background-color: #6C3483;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #5B2C6F;
+        }
+
+        .main {
+            padding: 40px 35px;
+            background-color: white;
+        }
+
+        .teacher-icon {
+            text-align: center;
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h2 {
+            color: #2C3E50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-text p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #2C3E50;
+            font-size: 16px;
+        }
+
+        .input-field {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #8E44AD;
+            box-shadow: 0 0 0 3px rgba(142,68,173,0.1);
+        }
+
+        .btn-login {
+            background-color: #8E44AD;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            background-color: #6C3483;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(142,68,173,0.3);
+        }
+
+        .info-box {
+            background-color: #f0e6f5;
+            border-left: 6px solid #8E44AD;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0 15px;
+        }
+
+        .info-box p {
+            color: #4A235A;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .info-box ul {
+            color: #4A235A;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        .info-box li {
+            margin-bottom: 5px;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider span {
+            background-color: white;
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .student-link {
+            text-align: center;
+        }
+
+        .btn-student {
+            background-color: #3498DB;
+            color: white;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-student:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background-color: #8E44AD;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #6C3483;
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #c62828;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #2e7d32;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>👨‍🏫 TEACHER AREA</span>
+        <a href="../index.html">Home</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <div class="teacher-icon">👨‍🏫</div>
+        
+        <div class="welcome-text">
+            <h2>Teacher Login</h2>
+            <p>Access your dashboard to manage students and questions</p>
+        </div>
+
+        <!-- messages -->
+        <div id="errorMessage" class="error-message">
+            ❌ Incorrect password. Please try again.
+        </div>
+        <div id="successMessage" class="success-message">
+            ✅ Login successful! Redirecting...
+        </div>
+
+        <!-- login form -->
+        <form id="loginForm" class="login-form" onsubmit="handleTeacherLogin(event)">
+            <div class="input-group">
+                <label>🔐 Password</label>
+                <input type="password" id="password" class="input-field" placeholder="Enter teacher password" required>
+            </div>
+
+            <button type="submit" class="btn-login">🔓 ACCESS DASHBOARD</button>
+        </form>
+
+        <!-- info box -->
+        <div class="info-box">
+            <p><strong>📌 Default password:</strong> teacher2024</p>
+            <p><strong>⚠️ Important:</strong> Change password after first login</p>
+            <ul>
+                <li>Manage students</li>
+                <li>Create/edit questions</li>
+                <li>Review answers</li>
+                <li>Track progress</li>
+            </ul>
+        </div>
+
+        <div class="divider">
+            <span>Not a teacher?</span>
+        </div>
+
+        <div class="student-link">
+            <button onclick="window.location.href='../student/login.html'" class="btn-student">🔐 GO TO STUDENT LOGIN</button>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub - Teacher Portal
+    </div>
+</div>
+
+<script>
+    function handleTeacherLogin(event) {
+        event.preventDefault();
+        
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('errorMessage');
+        const successDiv = document.getElementById('successMessage');
+        
+        // Demo teacher password
+        // In real app, this would check against Google Sheets or backend
+        if (password === 'teacher2024') {
+            // Success
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'block';
+            
+            // Store teacher login state
+            localStorage.setItem('teacherLoggedIn', 'true');
+            
+            // Redirect to teacher dashboard after 1 second
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        } else {
+            // Error
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+        }
+    }
+    
+    // Check if already logged in
+    if (localStorage.getItem('teacherLoggedIn') === 'true') {
+        window.location.href = 'dashboard.html';
+    }
+</script>
+</body>
+</html>
