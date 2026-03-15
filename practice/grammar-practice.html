@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Grammar Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background-color: #34495E;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #008080;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .practice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .practice-title h2 {
+            font-size: 28px;
+            color: #2C3E50;
+        }
+
+        .practice-title p {
+            color: #008080;
+            font-weight: 600;
+        }
+
+        .progress-badge {
+            background-color: #3498DB;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .question-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .question-card:hover {
+            border-color: #008080;
+            box-shadow: 0 8px 16px rgba(0,128,128,0.1);
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            transform: scale(1.02);
+        }
+
+        .option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .short-answer {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .short-answer:focus {
+            outline: none;
+            border-color: #008080;
+        }
+
+        .true-false {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .tf-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: #f8f9fa;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        .fill-blank {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .matching-col {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .matching-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .matching-item select {
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+
+        .btn-check {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            margin-right: 10px;
+        }
+
+        .btn-check:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-submit {
+            background-color: #27AE60;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #219a52;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 30px 0 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #008080;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            text-align: right;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; gap: 10px; }
+            .practice-header { flex-direction: column; }
+            .options { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="window.location.href='../student/dashboard.html'">← Back</button>
+            <span>📝 GRAMMAR PRACTICE - PRESENT SIMPLE</span>
+        </div>
+        <div class="user-info">
+            <span id="studentNameDisplay">👋 Hello, Sarah! (Beginner)</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <div class="practice-header">
+            <div class="practice-title">
+                <h2>Teacher's Questions (12)</h2>
+                <p>Topic: Present Simple Tense</p>
+            </div>
+            <div class="progress-badge" id="progressCount">8/12 answered</div>
+        </div>
+
+        <!-- questions list -->
+        <div class="questions-list" id="questionsList">
+            <!-- Q1 - Multiple Choice -->
+            <div class="question-card" id="q1">
+                <div class="question-text">Q1. She _____ to school every day.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="go"> go
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="goes"> goes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="going"> going
+                    </label>
+                </div>
+                <button class="btn-check" onclick="checkAnswer('q1', 'goes')">Check Answer</button>
+                <div id="feedback-q1" class="feedback"></div>
+            </div>
+
+            <!-- Q2 - Short Answer -->
+            <div class="question-card" id="q2">
+                <div class="question-text">Q2. What did you do yesterday? (Short Answer)</div>
+                <textarea class="short-answer" id="q2-answer" rows="3" placeholder="Type your answer here..."></textarea>
+                <button class="btn-check" onclick="submitShortAnswer('q2')">Submit (Teacher will review)</button>
+                <div id="feedback-q2" class="feedback"></div>
+            </div>
+
+            <!-- Q3 - True/False -->
+            <div class="question-card" id="q3">
+                <div class="question-text">Q3. London is the capital of France.</div>
+                <div class="true-false">
+                    <label class="tf-option">
+                        <input type="radio" name="q3" value="true"> True
+                    </label>
+                    <label class="tf-option">
+                        <input type="radio" name="q3" value="false"> False
+                    </label>
+                </div>
+                <button class="btn-check" onclick="checkAnswer('q3', 'false')">Check Answer</button>
+                <div id="feedback-q3" class="feedback"></div>
+            </div>
+
+            <!-- Q4 - Fill in Blank -->
+            <div class="question-card" id="q4">
+                <div class="question-text">Q4. I _____ (be) a student. (Fill in blank)</div>
+                <input type="text" class="fill-blank" id="q4-answer" placeholder="Type your answer">
+                <button class="btn-check" onclick="checkFillBlank('q4', 'am')">Check Answer</button>
+                <div id="feedback-q4" class="feedback"></div>
+            </div>
+
+            <!-- Q5 - Matching -->
+            <div class="question-card" id="q5">
+                <div class="question-text">Q5. Match the words:</div>
+                <div class="matching-grid">
+                    <div class="matching-col">
+                        <div class="matching-item">
+                            <span>Apple</span>
+                            <select id="match1">
+                                <option value="">Select</option>
+                                <option value="fruit">Fruit</option>
+                                <option value="vehicle">Vehicle</option>
+                                <option value="read">Read</option>
+                            </select>
+                        </div>
+                        <div class="matching-item">
+                            <span>Car</span>
+                            <select id="match2">
+                                <option value="">Select</option>
+                                <option value="fruit">Fruit</option>
+                                <option value="vehicle">Vehicle</option>
+                                <option value="read">Read</option>
+                            </select>
+                        </div>
+                        <div class="matching-item">
+                            <span>Book</span>
+                            <select id="match3">
+                                <option value="">Select</option>
+                                <option value="fruit">Fruit</option>
+                                <option value="vehicle">Vehicle</option>
+                                <option value="read">Read</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="matching-col">
+                        <p><strong>Right column:</strong></p>
+                        <p>• Fruit</p>
+                        <p>• Vehicle</p>
+                        <p>• Read</p>
+                    </div>
+                </div>
+                <button class="btn-check" onclick="checkMatching()">Check Matches</button>
+                <div id="feedback-q5" class="feedback"></div>
+            </div>
+
+            <!-- Q6 - Multiple Choice -->
+            <div class="question-card" id="q6">
+                <div class="question-text">Q6. _____ you like coffee?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="do"> Do
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="does"> Does
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="are"> Are
+                    </label>
+                </div>
+                <button class="btn-check" onclick="checkAnswer('q6', 'do')">Check Answer</button>
+                <div id="feedback-q6" class="feedback"></div>
+            </div>
+
+            <!-- Q7 to Q12 would be similar - for brevity I'll add placeholders -->
+            <!-- In real implementation, you'd generate these dynamically -->
+        </div>
+
+        <!-- progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 66.7%"></div>
+        </div>
+        <div class="progress-text" id="progressText">8/12 answered</div>
+
+        <!-- submit all button -->
+        <button class="btn-submit" onclick="submitAll()">✅ SUBMIT ALL ANSWERS</button>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    // Track answered questions
+    let answered = new Set(['q1', 'q3', 'q4', 'q5', 'q6']); // demo: 5 answered + q2 pending
+    let totalQuestions = 12;
+
+    // Load student info
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameSpan = document.getElementById('studentNameDisplay');
+        const savedName = localStorage.getItem('studentName');
+        
+        if (savedName) {
+            nameSpan.textContent = `👋 Hello, ${savedName}! (Beginner)`;
+        }
+        
+        updateProgress();
+    });
+
+    function checkAnswer(questionId, correctAnswer) {
+        const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+        const feedback = document.getElementById(`feedback-${questionId}`);
+        
+        if (!selected) {
+            feedback.textContent = '❌ Please select an answer';
+            feedback.className = 'feedback incorrect';
+            return;
+        }
+        
+        if (selected.value === correctAnswer) {
+            feedback.textContent = '✅ Correct! Well done!';
+            feedback.className = 'feedback correct';
+            answered.add(questionId);
+        } else {
+            feedback.textContent = `❌ Incorrect. The correct answer is "${correctAnswer}"`;
+            feedback.className = 'feedback incorrect';
+        }
+        
+        updateProgress();
+    }
+
+    function checkFillBlank(questionId, correctAnswer) {
+        const answer = document.getElementById(`${questionId}-answer`).value.trim().toLowerCase();
+        const feedback = document.getElementById(`feedback-${questionId}`);
+        
+        if (!answer) {
+            feedback.textContent = '❌ Please type an answer';
+            feedback.className = 'feedback incorrect';
+            return;
+        }
+        
+        if (answer === correctAnswer.toLowerCase()) {
+            feedback.textContent = '✅ Correct! Well done!';
+            feedback.className = 'feedback correct';
+            answered.add(questionId);
+        } else {
+            feedback.textContent = `❌ Incorrect. The correct answer is "${correctAnswer}"`;
+            feedback.className = 'feedback incorrect';
+        }
+        
+        updateProgress();
+    }
+
+    function submitShortAnswer(questionId) {
+        const answer = document.getElementById(`${questionId}-answer`).value;
+        const feedback = document.getElementById(`feedback-${questionId}`);
+        
+        if (!answer.trim()) {
+            feedback.textContent = '❌ Please write your answer';
+            feedback.className = 'feedback incorrect';
+            return;
+        }
+        
+        feedback.textContent = '✅ Answer submitted! Teacher will review it soon.';
+        feedback.className = 'feedback correct';
+        answered.add(questionId);
+        updateProgress();
+    }
+
+    function checkMatching() {
+        const match1 = document.getElementById('match1').value;
+        const match2 = document.getElementById('match2').value;
+        const match3 = document.getElementById('match3').value;
+        const feedback = document.getElementById('feedback-q5');
+        
+        if (match1 === 'fruit' && match2 === 'vehicle' && match3 === 'read') {
+            feedback.textContent = '✅ All matches correct!';
+            feedback.className = 'feedback correct';
+            answered.add('q5');
+        } else {
+            feedback.textContent = '❌ Not all matches are correct. Try again! (Apple→Fruit, Car→Vehicle, Book→Read)';
+            feedback.className = 'feedback incorrect';
+        }
+        
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const answeredCount = answered.size;
+        const percent = (answeredCount / totalQuestions) * 100;
+        
+        document.getElementById('progressFill').style.width = `${percent}%`;
+        document.getElementById('progressText').textContent = `${answeredCount}/${totalQuestions} answered`;
+        document.getElementById('progressCount').textContent = `${answeredCount}/${totalQuestions} answered`;
+    }
+
+    function submitAll() {
+        alert(`Submitted ${answered.size} answers. Thank you!`);
+    }
+
+    function logout() {
+        localStorage.removeItem('studentName');
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = '../student/login.html';
+    }
+</script>
+</body>
+</html>

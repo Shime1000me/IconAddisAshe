@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Vocabulary Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background-color: #34495E;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #008080;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .practice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .practice-title h2 {
+            font-size: 28px;
+            color: #2C3E50;
+        }
+
+        .practice-title p {
+            color: #008080;
+            font-weight: 600;
+        }
+
+        .progress-badge {
+            background-color: #27AE60;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        .topic-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .topic-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 12px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .topic-btn:hover {
+            border-color: #008080;
+            background-color: #e6f3f3;
+        }
+
+        .topic-btn.active {
+            background-color: #008080;
+            color: white;
+            border-color: #008080;
+        }
+
+        .word-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+
+        .word-title {
+            font-size: 48px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .word-definition {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .word-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .word-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 40px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .word-option:hover {
+            border-color: #008080;
+            background-color: #e6f3f3;
+            transform: translateY(-2px);
+        }
+
+        .word-option.selected {
+            background-color: #008080;
+            color: white;
+            border-color: #008080;
+        }
+
+        .btn-check {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin: 10px;
+        }
+
+        .btn-check:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-next {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin: 10px;
+        }
+
+        .btn-next:hover {
+            background-color: #006666;
+        }
+
+        .flashcard-mode {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .flashcard-btn {
+            background-color: transparent;
+            border: 2px solid #008080;
+            color: #008080;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .flashcard-btn:hover {
+            background-color: #008080;
+            color: white;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 30px 0 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #008080;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .word-counter {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; gap: 10px; }
+            .word-title { font-size: 36px; }
+            .word-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="window.location.href='../student/dashboard.html'">← Back</button>
+            <span>📕 VOCABULARY PRACTICE</span>
+        </div>
+        <div class="user-info">
+            <span id="studentNameDisplay">👋 Hello, Sarah! (Beginner)</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <div class="practice-header">
+            <div class="practice-title">
+                <h2>Travel Vocabulary</h2>
+                <p>15 words • Topic: Travel</p>
+            </div>
+            <div class="progress-badge" id="progressCount">3/15 learned</div>
+        </div>
+
+        <!-- topic selector -->
+        <div class="topic-selector">
+            <button class="topic-btn active" onclick="changeTopic('travel')">✈️ Travel</button>
+            <button class="topic-btn" onclick="changeTopic('business')">💼 Business</button>
+            <button class="topic-btn" onclick="changeTopic('food')">🍔 Food</button>
+            <button class="topic-btn" onclick="changeTopic('tech')">💻 Tech</button>
+        </div>
+
+        <!-- flashcard mode toggle -->
+        <div class="flashcard-mode">
+            <button class="flashcard-btn" onclick="setMode('practice')">📝 Practice Mode</button>
+            <button class="flashcard-btn" onclick="setMode('flashcard')">🃏 Flashcard Mode</button>
+            <button class="flashcard-btn" onclick="setMode('quiz')">📋 Quiz Mode</button>
+        </div>
+
+        <!-- word card -->
+        <div class="word-card" id="wordCard">
+            <div class="word-title" id="currentWord">Luggage</div>
+            <div class="word-definition" id="currentDefinition">Bags and suitcases used for travel</div>
+            
+            <!-- options for practice mode -->
+            <div id="optionsContainer">
+                <div class="word-options">
+                    <div class="word-option" onclick="selectOption(this, 'bags')">Bags and suitcases</div>
+                    <div class="word-option" onclick="selectOption(this, 'ticket')">Plane ticket</div>
+                    <div class="word-option" onclick="selectOption(this, 'hotel')">Hotel room</div>
+                    <div class="word-option" onclick="selectOption(this, 'passport')">Passport</div>
+                </div>
+            </div>
+
+            <!-- flashcard mode (hidden by default) -->
+            <div id="flashcardContainer" style="display: none;">
+                <div style="font-size: 24px; margin: 30px; padding: 30px; background: #f0f0f0; border-radius: 16px;">
+                    Click to flip
+                </div>
+            </div>
+
+            <!-- buttons -->
+            <div>
+                <button class="btn-check" onclick="checkWord()">✅ Check Answer</button>
+                <button class="btn-next" onclick="nextWord()">▶ Next Word</button>
+            </div>
+
+            <!-- feedback -->
+            <div id="feedback" class="feedback"></div>
+        </div>
+
+        <!-- progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+        </div>
+        <div class="stats-row">
+            <span class="word-counter" id="wordPosition">Word 3 of 15</span>
+            <span>✅ 3 correct • ❌ 1 incorrect</span>
+        </div>
+
+        <!-- word list preview -->
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 12px;">
+            <h3 style="color: #2C3E50; margin-bottom: 15px;">📋 Word List - Travel</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ luggage</span>
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ departure</span>
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ arrival</span>
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ passport</span>
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ destination</span>
+                <span style="background: white; padding: 8px; border-radius: 20px; text-align: center;">✈️ boarding pass</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    let currentMode = 'practice';
+    let currentWordIndex = 2; // 0-based index
+    let selectedOption = null;
+
+    // Sample vocabulary data
+    const words = [
+        { word: 'Luggage', definition: 'Bags and suitcases used for travel', options: ['Bags and suitcases', 'Plane ticket', 'Hotel room', 'Passport'] },
+        { word: 'Departure', definition: 'The act of leaving, especially on a trip', options: ['Arriving', 'Leaving', 'Waiting', 'Flying'] },
+        { word: 'Arrival', definition: 'The act of reaching a destination', options: ['Coming', 'Going', 'Leaving', 'Flying'] },
+        { word: 'Passport', definition: 'An official document for international travel', options: ['ID card', 'Ticket', 'Visa', 'Document'] },
+        { word: 'Destination', definition: 'The place to which someone is going', options: ['Start point', 'End point', 'Stopover', 'Airport'] }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameSpan = document.getElementById('studentNameDisplay');
+        const savedName = localStorage.getItem('studentName');
+        
+        if (savedName) {
+            nameSpan.textContent = `👋 Hello, ${savedName}! (Beginner)`;
+        }
+        
+        updateWordDisplay();
+    });
+
+    function updateWordDisplay() {
+        const word = words[currentWordIndex];
+        document.getElementById('currentWord').textContent = word.word;
+        document.getElementById('currentDefinition').textContent = word.definition;
+        
+        // Update word position
+        document.getElementById('wordPosition').textContent = `Word ${currentWordIndex + 1} of ${words.length}`;
+        document.getElementById('progressFill').style.width = `${((currentWordIndex + 1) / words.length) * 100}%`;
+        document.getElementById('progressCount').textContent = `${currentWordIndex + 1}/${words.length} learned`;
+    }
+
+    function selectOption(element, value) {
+        // Remove selected class from all options
+        document.querySelectorAll('.word-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked option
+        element.classList.add('selected');
+        selectedOption = value;
+    }
+
+    function checkWord() {
+        const feedback = document.getElementById('feedback');
+        
+        if (currentMode === 'practice') {
+            if (!selectedOption) {
+                feedback.textContent = '❌ Please select an answer';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+            
+            // Simple check for demo - in real app would have correct answers
+            if (selectedOption === 'Bags and suitcases' || selectedOption === 'bags') {
+                feedback.textContent = '✅ Correct! Well done!';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `❌ Incorrect. Try again!`;
+                feedback.className = 'feedback incorrect';
+            }
+        } else {
+            feedback.textContent = 'ℹ️ Flip the card to see definition';
+            feedback.className = 'feedback correct';
+        }
+    }
+
+    function nextWord() {
+        currentWordIndex = (currentWordIndex + 1) % words.length;
+        selectedOption = null;
+        
+        // Remove selected class from all options
+        document.querySelectorAll('.word-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        
+        // Clear feedback
+        document.getElementById('feedback').className = 'feedback';
+        document.getElementById('feedback').textContent = '';
+        
+        updateWordDisplay();
+    }
+
+    function changeTopic(topic) {
+        // Update active button
+        document.querySelectorAll('.topic-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        alert(`Switching to ${topic} vocabulary - coming soon!`);
+    }
+
+    function setMode(mode) {
+        currentMode = mode;
+        
+        const optionsContainer = document.getElementById('optionsContainer');
+        const flashcardContainer = document.getElementById('flashcardContainer');
+        const wordDefinition = document.getElementById('currentDefinition');
+        
+        if (mode === 'flashcard') {
+            optionsContainer.style.display = 'none';
+            flashcardContainer.style.display = 'block';
+            wordDefinition.style.display = 'none';
+        } else {
+            optionsContainer.style.display = 'block';
+            flashcardContainer.style.display = 'none';
+            wordDefinition.style.display = 'block';
+        }
+        
+        // Update button active states
+        document.querySelectorAll('.flashcard-btn').forEach((btn, index) => {
+            if ((mode === 'practice' && index === 0) ||
+                (mode === 'flashcard' && index === 1) ||
+                (mode === 'quiz' && index === 2)) {
+                btn.style.backgroundColor = '#008080';
+                btn.style.color = 'white';
+            } else {
+                btn.style.backgroundColor = 'transparent';
+                btn.style.color = '#008080';
+            }
+        });
+    }
+
+    function logout() {
+        localStorage.removeItem('studentName');
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = '../student/login.html';
+    }
+</script>
+</body>
+</html>

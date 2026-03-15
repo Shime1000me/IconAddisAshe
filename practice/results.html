@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Practice Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            border: 2px solid #2C3E50;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            background-color: #34495E;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 40px;
+            background-color: white;
+        }
+
+        .result-card {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+        }
+
+        .result-subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid #008080;
+            box-shadow: 0 10px 20px rgba(0,128,128,0.2);
+        }
+
+        .score-number {
+            font-size: 64px;
+            font-weight: bold;
+            color: #008080;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 18px;
+            color: #2C3E50;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .progress-detailed {
+            margin-bottom: 40px;
+        }
+
+        .progress-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .progress-label {
+            width: 120px;
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .progress-bar-bg {
+            flex: 1;
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #008080;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .progress-percent {
+            width: 50px;
+            text-align: right;
+            font-weight: 600;
+            color: #008080;
+        }
+
+        .feedback-section {
+            background: #f0f7ff;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .feedback-title {
+            font-size: 20px;
+            color: #2C3E50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498DB;
+        }
+
+        .feedback-question {
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+
+        .feedback-answer {
+            color: #27AE60;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: #006666;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,128,128,0.3);
+        }
+
+        .btn-secondary {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52,152,219,0.3);
+        }
+
+        .badge-earned {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+            .main { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>📊 PRACTICE RESULTS</span>
+        <a href="../student/dashboard.html">Dashboard</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <!-- results card -->
+        <div class="result-card">
+            <div class="result-icon">🏆</div>
+            <div class="result-title" id="resultTitle">Great Job!</div>
+            <div class="result-subtitle" id="resultSubtitle">You completed Reading: My Daily Routine</div>
+            
+            <!-- score circle -->
+            <div class="score-circle">
+                <span class="score-number" id="scorePercentage">80</span>
+                <span class="score-label">%</span>
+            </div>
+
+            <!-- earned badge -->
+            <div class="badge-earned">
+                <span>⭐</span> Badge Earned: Reading Novice
+            </div>
+        </div>
+
+        <!-- stats grid -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value" id="totalQuestions">5</div>
+                <div class="stat-label">Total Questions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="correctAnswers">4</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="incorrectAnswers">1</div>
+                <div class="stat-label">Incorrect</div>
+            </div>
+        </div>
+
+        <!-- detailed progress -->
+        <div class="progress-detailed">
+            <h3 style="color: #2C3E50; margin-bottom: 15px;">📈 Detailed Progress</h3>
+            
+            <div class="progress-row">
+                <span class="progress-label">Grammar</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 80%"></div>
+                </div>
+                <span class="progress-percent">80%</span>
+            </div>
+            
+            <div class="progress-row">
+                <span class="progress-label">Vocabulary</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 60%"></div>
+                </div>
+                <span class="progress-percent">60%</span>
+            </div>
+            
+            <div class="progress-row">
+                <span class="progress-label">Reading</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 90%"></div>
+                </div>
+                <span class="progress-percent">90%</span>
+            </div>
+            
+            <div class="progress-row">
+                <span class="progress-label">Listening</span>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 40%"></div>
+                </div>
+                <span class="progress-percent">40%</span>
+            </div>
+        </div>
+
+        <!-- feedback on incorrect answers -->
+        <div class="feedback-section">
+            <div class="feedback-title">
+                <span>💡</span> Review Incorrect Answers
+            </div>
+            
+            <div class="feedback-item">
+                <div class="feedback-question">Question 2: What does Anna have for breakfast?</div>
+                <div class="feedback-answer">✅ Correct answer: Cereal with milk and banana</div>
+                <div style="color: #E74C3C; font-size: 14px; margin-top: 5px;">❌ Your answer: Eggs and toast</div>
+            </div>
+            
+            <div class="feedback-item">
+                <div class="feedback-question">Tip: Always read carefully! The answer is in paragraph 1.</div>
+            </div>
+        </div>
+
+        <!-- action buttons -->
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="window.location.href='reading-practice.html'">🔄 Practice Again</button>
+            <button class="btn-secondary" onclick="window.location.href='../student/dashboard.html'">🏠 Go to Dashboard</button>
+            <button class="btn-secondary" onclick="window.location.href='../challenge.html'">🏆 Try a Challenge</button>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load results from localStorage (set by reading-practice.html)
+        const savedResults = localStorage.getItem('lastReadingResults');
+        
+        if (savedResults) {
+            const results = JSON.parse(savedResults);
+            
+            // Update display with actual results
+            document.getElementById('totalQuestions').textContent = results.total;
+            document.getElementById('correctAnswers').textContent = results.correct;
+            document.getElementById('incorrectAnswers').textContent = results.total - results.correct;
+            document.getElementById('scorePercentage').textContent = results.score;
+            
+            // Update title based on score
+            const title = document.getElementById('resultTitle');
+            const subtitle = document.getElementById('resultSubtitle');
+            
+            if (results.score >= 80) {
+                title.textContent = '🏆 Excellent Work!';
+            } else if (results.score >= 60) {
+                title.textContent = '👍 Good Job!';
+            } else {
+                title.textContent = '📚 Keep Practicing!';
+            }
+            
+            subtitle.textContent = `You completed ${results.topic}`;
+        }
+        
+        // Check login
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = '../student/login.html';
+        }
+    });
+</script>
+</body>
+</html>

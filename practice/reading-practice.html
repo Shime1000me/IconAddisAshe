@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Reading Practice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background-color: #34495E;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #008080;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .reading-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .reading-title h2 {
+            font-size: 28px;
+            color: #2C3E50;
+        }
+
+        .reading-title p {
+            color: #008080;
+            font-weight: 600;
+        }
+
+        .level-badge {
+            background-color: #27AE60;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 40px;
+            font-weight: bold;
+        }
+
+        .passage-card {
+            background: linear-gradient(145deg, #f9f9f9, #ffffff);
+            border: 2px solid #008080;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,128,128,0.1);
+        }
+
+        .passage-title {
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #008080;
+        }
+
+        .passage-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #34495E;
+            margin-bottom: 20px;
+        }
+
+        .passage-text p {
+            margin-bottom: 15px;
+        }
+
+        .vocab-highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: help;
+            border-bottom: 2px dotted #e67e22;
+        }
+
+        .questions-section {
+            margin-top: 30px;
+        }
+
+        .questions-title {
+            font-size: 22px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-item {
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+
+        .question-item:hover {
+            border-color: #008080;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .question-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .question-option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .question-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .btn-submit-answer {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-submit-answer:hover {
+            background-color: #2980b9;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 30px 0 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #008080;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .btn-finish {
+            background-color: #27AE60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background 0.2s;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .btn-finish:hover {
+            background-color: #219a52;
+        }
+
+        .audio-section {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-audio {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-audio:hover {
+            background-color: #006666;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; gap: 10px; }
+            .passage-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <div class="header-left">
+            <button class="back-btn" onclick="window.location.href='../student/dashboard.html'">← Back</button>
+            <span>📗 READING PRACTICE</span>
+        </div>
+        <div class="user-info">
+            <span id="studentNameDisplay">👋 Hello, Sarah! (Beginner)</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <div class="reading-header">
+            <div class="reading-title">
+                <h2>My Daily Routine</h2>
+                <p>Reading comprehension • 5 questions</p>
+            </div>
+            <div class="level-badge">Beginner Level</div>
+        </div>
+
+        <!-- audio section -->
+        <div class="audio-section">
+            <button class="btn-audio" onclick="playAudio()">
+                <span>🔊</span> Listen to passage
+            </button>
+            <span style="color: #666;">Listen and read along</span>
+        </div>
+
+        <!-- reading passage -->
+        <div class="passage-card">
+            <div class="passage-title">📖 My Daily Routine</div>
+            <div class="passage-text">
+                <p>Anna wakes up at 7 AM every day. She <span class="vocab-highlight" title="to clean teeth using a brush">brushes</span> her teeth and washes her face. Then she goes to the kitchen and eats breakfast. She usually has cereal with milk and a banana.</p>
+                
+                <p>After breakfast, Anna gets dressed for school. She puts on her uniform and packs her bag. She leaves home at 8:15 AM and walks to school. The school is near her house, so it only takes 10 minutes.</p>
+                
+                <p>At school, Anna has classes from 9 AM to 3 PM. She likes <span class="vocab-highlight" title="subjects like reading and writing">English</span> and math the most. She eats lunch with her friends at 12 PM in the cafeteria.</p>
+                
+                <p>After school, Anna goes home and does her homework. Then she plays with her little brother for an hour. At 7 PM, the family has dinner together. Anna goes to bed at 9 PM.</p>
+            </div>
+        </div>
+
+        <!-- comprehension questions -->
+        <div class="questions-section">
+            <div class="questions-title">
+                <span>📝</span> Comprehension Questions
+            </div>
+
+            <!-- Q1 -->
+            <div class="question-item" id="q1">
+                <div class="question-text">1. What time does Anna wake up?</div>
+                <div class="question-options">
+                    <label class="question-option">
+                        <input type="radio" name="q1" value="6am"> 6 AM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q1" value="7am"> 7 AM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q1" value="8am"> 8 AM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q1" value="9am"> 9 AM
+                    </label>
+                </div>
+                <button class="btn-submit-answer" onclick="checkReadingAnswer('q1', '7am')">Submit Answer</button>
+                <div id="feedback-q1" class="feedback"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-item" id="q2">
+                <div class="question-text">2. What does Anna have for breakfast?</div>
+                <div class="question-options">
+                    <label class="question-option">
+                        <input type="radio" name="q2" value="eggs"> Eggs and toast
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q2" value="cereal"> Cereal with milk and banana
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q2" value="pancakes"> Pancakes
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q2" value="nothing"> Nothing
+                    </label>
+                </div>
+                <button class="btn-submit-answer" onclick="checkReadingAnswer('q2', 'cereal')">Submit Answer</button>
+                <div id="feedback-q2" class="feedback"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-item" id="q3">
+                <div class="question-text">3. How does Anna get to school?</div>
+                <div class="question-options">
+                    <label class="question-option">
+                        <input type="radio" name="q3" value="bus"> By bus
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q3" value="car"> By car
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q3" value="walks"> Walks
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q3" value="bike"> By bike
+                    </label>
+                </div>
+                <button class="btn-submit-answer" onclick="checkReadingAnswer('q3', 'walks')">Submit Answer</button>
+                <div id="feedback-q3" class="feedback"></div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-item" id="q4">
+                <div class="question-text">4. What subjects does Anna like most?</div>
+                <div class="question-options">
+                    <label class="question-option">
+                        <input type="radio" name="q4" value="science"> Science and art
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q4" value="english"> English and math
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q4" value="history"> History and geography
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q4" value="gym"> Gym and music
+                    </label>
+                </div>
+                <button class="btn-submit-answer" onclick="checkReadingAnswer('q4', 'english')">Submit Answer</button>
+                <div id="feedback-q4" class="feedback"></div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-item" id="q5">
+                <div class="question-text">5. What time does Anna go to bed?</div>
+                <div class="question-options">
+                    <label class="question-option">
+                        <input type="radio" name="q5" value="8pm"> 8 PM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q5" value="9pm"> 9 PM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q5" value="10pm"> 10 PM
+                    </label>
+                    <label class="question-option">
+                        <input type="radio" name="q5" value="11pm"> 11 PM
+                    </label>
+                </div>
+                <button class="btn-submit-answer" onclick="checkReadingAnswer('q5', '9pm')">Submit Answer</button>
+                <div id="feedback-q5" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 40%"></div>
+        </div>
+        <div class="stats-row">
+            <span id="progressText">2/5 answered</span>
+            <span id="scoreDisplay">✅ 2 correct</span>
+        </div>
+
+        <!-- finish button -->
+        <button class="btn-finish" onclick="finishReading()">✅ FINISH & SEE RESULTS</button>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    let answered = new Set();
+    let correct = 0;
+    let totalQuestions = 5;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameSpan = document.getElementById('studentNameDisplay');
+        const savedName = localStorage.getItem('studentName');
+        
+        if (savedName) {
+            nameSpan.textContent = `👋 Hello, ${savedName}! (Beginner)`;
+        }
+        
+        // Check login
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = '../student/login.html';
+        }
+    });
+
+    function checkReadingAnswer(questionId, correctAnswer) {
+        const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+        const feedback = document.getElementById(`feedback-${questionId}`);
+        
+        if (!selected) {
+            feedback.textContent = '❌ Please select an answer';
+            feedback.className = 'feedback incorrect';
+            return;
+        }
+        
+        if (selected.value === correctAnswer) {
+            feedback.textContent = '✅ Correct! Well done!';
+            feedback.className = 'feedback correct';
+            
+            if (!answered.has(questionId)) {
+                answered.add(questionId);
+                correct++;
+            }
+        } else {
+            feedback.textContent = `❌ Incorrect. The correct answer is "${correctAnswer}"`;
+            feedback.className = 'feedback incorrect';
+            
+            if (!answered.has(questionId)) {
+                answered.add(questionId);
+            }
+        }
+        
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const percent = (answered.size / totalQuestions) * 100;
+        document.getElementById('progressFill').style.width = `${percent}%`;
+        document.getElementById('progressText').textContent = `${answered.size}/${totalQuestions} answered`;
+        document.getElementById('scoreDisplay').textContent = `✅ ${correct} correct`;
+    }
+
+    function playAudio() {
+        alert('🔊 Audio narration - coming soon!');
+    }
+
+    function finishReading() {
+        if (answered.size < totalQuestions) {
+            if (!confirm(`You've answered ${answered.size} out of ${totalQuestions} questions. Submit anyway?`)) {
+                return;
+            }
+        }
+        
+        // Save results to localStorage
+        const results = {
+            topic: 'My Daily Routine',
+            total: totalQuestions,
+            answered: answered.size,
+            correct: correct,
+            score: Math.round((correct / totalQuestions) * 100)
+        };
+        
+        localStorage.setItem('lastReadingResults', JSON.stringify(results));
+        
+        // Redirect to results page
+        window.location.href = 'results.html';
+    }
+
+    function logout() {
+        localStorage.removeItem('studentName');
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = '../student/login.html';
+    }
+</script>
+</body>
+</html>
