@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - Student Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            border: 2px solid #2C3E50;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            background-color: #34495E;
+            padding: 5px 15px;
+            border-radius: 30px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 40px 35px;
+            background-color: white;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h2 {
+            color: #2C3E50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-text p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #2C3E50;
+            font-size: 16px;
+        }
+
+        .input-field {
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #008080;
+            box-shadow: 0 0 0 3px rgba(0,128,128,0.1);
+        }
+
+        .level-selection {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .level-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 40px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .level-option:hover {
+            border-color: #008080;
+            background: #e6f3f3;
+        }
+
+        .level-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .level-option label {
+            font-weight: 600;
+            color: #2C3E50;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .password-hint {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .password-hint i {
+            color: #008080;
+        }
+
+        .btn-register {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn-register:hover {
+            background-color: #006666;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,128,128,0.3);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider span {
+            background-color: white;
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-link {
+            text-align: center;
+        }
+
+        .btn-login {
+            background-color: #3498DB;
+            color: white;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-login:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52,152,219,0.3);
+        }
+
+        .terms {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .terms a {
+            color: #008080;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #c62828;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #2e7d32;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>✨ NEW STUDENT REGISTRATION</span>
+        <a href="../index.html">Home</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <div class="welcome-text">
+            <h2>Create your free account</h2>
+            <p>Start practicing English today!</p>
+        </div>
+
+        <!-- messages -->
+        <div id="errorMessage" class="error-message">
+            ❌ Passwords do not match or invalid input.
+        </div>
+        <div id="successMessage" class="success-message">
+            ✅ Registration successful! Redirecting to login...
+        </div>
+
+        <!-- registration form -->
+        <form id="registerForm" class="register-form" onsubmit="handleRegister(event)">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" class="input-field" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Create Password</label>
+                <input type="password" id="password" class="input-field" placeholder="Create a password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Select Your Level</label>
+                <div class="level-selection">
+                    <div class="level-option">
+                        <input type="radio" name="level" id="beginner" value="Beginner" checked>
+                        <label for="beginner">Beginner</label>
+                    </div>
+                    <div class="level-option">
+                        <input type="radio" name="level" id="intermediate" value="Intermediate">
+                        <label for="intermediate">Intermediate</label>
+                    </div>
+                    <div class="level-option">
+                        <input type="radio" name="level" id="advanced" value="Advanced">
+                        <label for="advanced">Advanced</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="password-hint">
+                <i>💡 Password must be at least 6 characters</i>
+            </div>
+
+            <button type="submit" class="btn-register">✅ REGISTER & START PRACTICE</button>
+        </form>
+
+        <div class="divider">
+            <span>Already have an account?</span>
+        </div>
+
+        <div class="login-link">
+            <button onclick="window.location.href='login.html'" class="btn-login">🔐 LOGIN HERE</button>
+        </div>
+
+        <div class="terms">
+            By registering, you agree to our <a href="#" onclick="alert('Terms of service - coming soon!')">Terms of Service</a> and <a href="#" onclick="alert('Privacy policy - coming soon!')">Privacy Policy</a>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    function handleRegister(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('fullName').value;
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirmPassword').value;
+        const level = document.querySelector('input[name="level"]:checked').value;
+        
+        const errorDiv = document.getElementById('errorMessage');
+        const successDiv = document.getElementById('successMessage');
+        
+        // Validation
+        if (name.length < 2) {
+            errorDiv.textContent = '❌ Name must be at least 2 characters';
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+            return;
+        }
+        
+        if (password.length < 6) {
+            errorDiv.textContent = '❌ Password must be at least 6 characters';
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+            return;
+        }
+        
+        if (password !== confirm) {
+            errorDiv.textContent = '❌ Passwords do not match';
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+            return;
+        }
+        
+        // Success - in real app, this would save to Google Sheets
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'block';
+        
+        // Store demo data in localStorage (for demo purposes)
+        const students = JSON.parse(localStorage.getItem('registeredStudents') || '[]');
+        students.push({
+            name: name,
+            password: password,
+            level: level,
+            joinDate: new Date().toISOString().split('T')[0]
+        });
+        localStorage.setItem('registeredStudents', JSON.stringify(students));
+        
+        // Redirect to login after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 2000);
+    }
+</script>
+</body>
+</html>

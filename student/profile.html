@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IconAddis - My Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5F5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid #2C3E50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid #008080;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            background-color: #34495E;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .header a:hover {
+            background-color: #008080;
+        }
+
+        .nav {
+            background-color: #34495E;
+            padding: 12px 20px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #2C3E50;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            background-color: #008080;
+        }
+
+        .main {
+            padding: 30px;
+            background-color: white;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #008080, #2C3E50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            border: 4px solid #f1c40f;
+        }
+
+        .profile-title h2 {
+            font-size: 32px;
+            color: #2C3E50;
+            margin-bottom: 5px;
+        }
+
+        .profile-title p {
+            color: #666;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: #008080;
+            color: white;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #008080;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .info-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        .edit-btn {
+            background-color: #3498DB;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .edit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .stats-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-mini {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-mini-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #008080;
+        }
+
+        .stat-mini-label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: #e8f4fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .activity-detail {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .settings-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #e0e0e0;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .toggle-switch.active {
+            background: #008080;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: 0.2s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 28px;
+        }
+
+        .btn-danger {
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            border-top: 3px solid #008080;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .profile-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="header">
+        <span>👤 MY PROFILE</span>
+        <a href="dashboard.html">← Back to Dashboard</a>
+    </div>
+
+    <!-- navigation -->
+    <div class="nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="../grammar.html">Grammar</a>
+        <a href="../vocabulary.html">Vocabulary</a>
+        <a href="../reading.html">Reading</a>
+        <a href="../challenge.html">Challenge</a>
+    </div>
+
+    <!-- main content -->
+    <div class="main">
+        <!-- profile header -->
+        <div class="profile-header">
+            <div class="profile-avatar">
+                👤
+            </div>
+            <div class="profile-title">
+                <h2 id="profileName">Sarah Johnson</h2>
+                <p>
+                    <span>📧 sarah.j@email.com</span>
+                    <span class="badge" id="profileLevel">Beginner</span>
+                    <span>⭐ Member since Jan 15, 2024</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="profile-grid">
+            <!-- left column -->
+            <div>
+                <!-- personal info -->
+                <div class="info-card">
+                    <div class="card-title">
+                        <span>📋</span> PERSONAL INFORMATION
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="info-label">Full Name</span>
+                        <span class="info-value" id="displayName">Sarah Johnson</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">sarah.j@email.com</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Current Level</span>
+                        <span class="info-value" id="displayLevel">Beginner</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Student ID</span>
+                        <span class="info-value">STU-2024-001</span>
+                    </div>
+                    
+                    <button class="edit-btn" onclick="editProfile()">✏️ Edit Profile</button>
+                </div>
+
+                <!-- recent activity -->
+                <div class="info-card">
+                    <div class="card-title">
+                        <span>⏱️</span> RECENT ACTIVITY
+                    </div>
+                    
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon">📝</div>
+                            <div class="activity-detail">
+                                <div class="activity-title">Completed Grammar Quiz</div>
+                                <div class="activity-time">Present Simple - 80% score</div>
+                            </div>
+                            <span class="activity-time">2 hours ago</span>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">📕</div>
+                            <div class="activity-detail">
+                                <div class="activity-title">Started Vocabulary</div>
+                                <div class="activity-time">Travel words - 5 words learned</div>
+                            </div>
+                            <span class="activity-time">Yesterday</span>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">🏆</div>
+                            <div class="activity-detail">
+                                <div class="activity-title">Joined Challenge</div>
+                                <div class="activity-time">Irregular Verbs Marathon</div>
+                            </div>
+                            <span class="activity-time">3 days ago</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- right column -->
+            <div>
+                <!-- quick stats -->
+                <div class="info-card">
+                    <div class="card-title">
+                        <span>📊</span> QUICK STATS
+                    </div>
+                    
+                    <div class="stats-mini-grid">
+                        <div class="stat-mini">
+                            <div class="stat-mini-value">24</div>
+                            <div class="stat-mini-label">Exercises Done</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-mini-value">79%</div>
+                            <div class="stat-mini-label">Avg Accuracy</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-mini-value">5</div>
+                            <div class="stat-mini-label">Day Streak</div>
+                        </div>
+                        <div class="stat-mini">
+                            <div class="stat-mini-value">3</div>
+                            <div class="stat-mini-label">Badges Earned</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- account settings -->
+                <div class="settings-card">
+                    <div class="card-title">
+                        <span>⚙️</span> ACCOUNT SETTINGS
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span>Email Notifications</span>
+                        <div class="toggle-switch active" onclick="toggleSetting(this)">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span>Daily Practice Reminder</span>
+                        <div class="toggle-switch active" onclick="toggleSetting(this)">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span>Challenge Updates</span>
+                        <div class="toggle-switch" onclick="toggleSetting(this)">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span>Change Password</span>
+                        <button class="edit-btn" style="padding: 5px 15px; margin:0;" onclick="alert('Password change - coming soon!')">Update</button>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <span>Delete Account</span>
+                        <button class="btn-danger" onclick="if(confirm('Are you sure? This cannot be undone.')) alert('Account deletion request sent to teacher')">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        © 2024 IconAddis Practice Hub
+    </div>
+</div>
+
+<script>
+    // Load student data
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameSpan = document.getElementById('profileName');
+        const displayName = document.getElementById('displayName');
+        const displayLevel = document.getElementById('displayLevel');
+        const profileLevel = document.getElementById('profileLevel');
+        
+        const savedName = localStorage.getItem('studentName');
+        
+        if (savedName) {
+            nameSpan.textContent = savedName + ' Johnson';
+            displayName.textContent = savedName + ' Johnson';
+        }
+        
+        // Check login
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    });
+
+    function editProfile() {
+        alert('Edit profile feature - coming soon!');
+    }
+
+    function toggleSetting(element) {
+        element.classList.toggle('active');
+    }
+</script>
+</body>
+</html>
